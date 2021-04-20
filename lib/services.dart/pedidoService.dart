@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:megafarmacia/models/pedidoModel.dart';
 import 'package:megafarmacia/models/productoModel.dart';
 import 'package:megafarmacia/models/usuarioModel.dart';
-import 'package:megafarmacia/pages/productosPages.dart';
 
 class PedidoService with ChangeNotifier {
   Pedido _pedido;
@@ -39,20 +38,10 @@ class PedidoService with ChangeNotifier {
   }
 
   void deleteProducto(Producto producto) {
-    if (this._pedido.productos.contains(producto)) {
-      this._pedido.productos.forEach((e) {
-        if (e == producto) {
-          Producto temp = e;
-          temp.cantidad += -1;
-          this._pedido.productos.remove(producto);
-          if (temp.cantidad != 0) {
-            this._pedido.productos.add(producto);
-          }
-        }
-      });
-    } else {
-      this._pedido.productos.add(producto);
-    }
+    this._pedido.productos.remove(producto);
+    this._pedido.cantProductos -= 1;
+    this._pedido.total -= producto.precio;
+
     notifyListeners();
   }
 }

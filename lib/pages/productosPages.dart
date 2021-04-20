@@ -62,9 +62,6 @@ class _ProductosPageState extends State<ProductosPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 5,
-              ),
               carrito.exitepedido ? Text('\$ ${carrito.total}') : Text('\$0.0')
             ],
           ),
@@ -91,11 +88,12 @@ class _ProductosPageState extends State<ProductosPage> {
     return GridView.builder(
         padding: EdgeInsets.all(4.0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: kIsWeb ? 6 : 2),
+            crossAxisCount: (MediaQuery.of(context).size.width ~/ 150)),
         itemCount: _productos.length,
         itemBuilder: (context, index) {
           final String fotoproducto = _productos[index].fotoproducto;
           var item = _productos[index];
+
           return Card(
             elevation: 4.0,
             child: Stack(
@@ -123,13 +121,15 @@ class _ProductosPageState extends State<ProductosPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          SizedBox(
-                            height: 25,
+                          Text(
+                            ' (${item.cantidad.toString()})',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15.0),
                           ),
                           Text(
                             '\$ ${item.precio.toString()}',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                                fontWeight: FontWeight.bold, fontSize: 15.0),
                           ),
                           carrito.exitepedido
                               ? IconButton(
