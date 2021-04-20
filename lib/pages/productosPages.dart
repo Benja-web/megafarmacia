@@ -4,9 +4,8 @@ import 'package:megafarmacia/models/pedidoModel.dart';
 import 'package:megafarmacia/models/productoModel.dart';
 import 'package:megafarmacia/models/usuarioModel.dart';
 import 'package:megafarmacia/pages/plantilaPage.dart';
-import 'package:megafarmacia/services.dart/pedidoService.dart';
+import 'package:megafarmacia/services/pedidoService.dart';
 import 'package:megafarmacia/utils/constantes.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 
 class ProductosPage extends StatefulWidget {

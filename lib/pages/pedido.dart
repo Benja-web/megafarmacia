@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:megafarmacia/models/productoModel.dart';
 import 'package:provider/provider.dart';
 import 'package:megafarmacia/pages/PlantilaPage.dart';
-import 'package:megafarmacia/services.dart/pedidoService.dart';
+import 'package:megafarmacia/services./pedidoService.dart';
 import 'package:megafarmacia/utils/constantes.dart';
 
 class PedidoPage extends StatelessWidget {
