@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:megafarmacia/services/loginPasswordRegistroService.dart';
-
+import 'package:megafarmacia/models/usuarioModel.dart';
+import 'package:megafarmacia/preferencias_usuario/preferencias.dart';
 import 'package:provider/provider.dart';
+import 'package:megafarmacia/services/loginPasswordRegistroService.dart';
+import 'package:megafarmacia/services/newUser.dart';
 
 class RegistroPage extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class _RegistroPageState extends State<RegistroPage> {
   final _usuarioPasswordController = TextEditingController();
   final _usuarioNombreController = TextEditingController();
   final _usuarioTelefonoController = TextEditingController();
+  final _prefs = new PreferenciasUsuario();
   @override
   void dispose() {
     _usuarioController.dispose();
@@ -25,6 +28,7 @@ class _RegistroPageState extends State<RegistroPage> {
   @override
   Widget build(BuildContext context) {
     final comprobar = Provider.of<CamposRegistroService>(context);
+    final newUser = Provider.of<NewUserService>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -95,11 +99,10 @@ class _RegistroPageState extends State<RegistroPage> {
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   labelText: 'Usuario',
-                                  errorText: comprobar.errorUsuario
+                                  errorText: comprobar.registouser
                                       ? 'El nombre del usuario debe ser mayor a 6 caracteres'
                                       : null),
-                              onChanged: (value) =>
-                                  comprobar.comprobarUsuario(value),
+                              onChanged: (value) => comprobar.user = value,
                             ),
                           ),
                           Container(
@@ -130,12 +133,11 @@ class _RegistroPageState extends State<RegistroPage> {
                                 focusedBorder: InputBorder.none,
                                 border: InputBorder.none,
                                 labelText: 'Contraseña',
-                                errorText: comprobar.errorpassword
+                                errorText: comprobar.registropassword
                                     ? 'La contraseña debe ser mayor a 6 caracteres'
                                     : null,
                               ),
-                              onChanged: (value) =>
-                                  comprobar.comprobarPassword(value),
+                              onChanged: (value) => comprobar.password = value,
                             ),
                           ),
                           Container(
@@ -167,8 +169,7 @@ class _RegistroPageState extends State<RegistroPage> {
                                 border: InputBorder.none,
                                 labelText: 'Nombre',
                               ),
-                              onChanged: (value) =>
-                                  comprobar.comprobarPassword(value),
+                              onChanged: (value) => comprobar.nombre = value,
                             ),
                           ),
                           Container(
@@ -200,15 +201,42 @@ class _RegistroPageState extends State<RegistroPage> {
                                 border: InputBorder.none,
                                 labelText: 'Telefono',
                               ),
-                              onChanged: (value) =>
-                                  comprobar.comprobarPassword(value),
+                              onChanged: (value) => comprobar.telefono = value,
                             ),
                           ),
                           Container(
                             width: double.infinity,
                             child: MaterialButton(
                               color: Colors.blue,
-                              onPressed: comprobar.habilitarBtn ? () {} : null,
+                              onPressed: comprobar.btn
+                                  ? () async {
+                                      Map result = await newUser.newUser(
+                                          correo:
+                                              _usuarioController.text.trim(),
+                                          password: _usuarioPasswordController
+                                              .text
+                                              .trim(),
+                                          nombre: _usuarioNombreController.text,
+                                          telefono:
+                                              _usuarioTelefonoController.text);
+                                      if (result['ok']) {
+                                        Usuario usuario = new Usuario(
+                                          uid: _prefs.uid,
+                                          nombre: _usuarioNombreController.text,
+                                          email:
+                                              '${_usuarioController.text}@megafarmacia.com',
+                                          telefono:
+                                              _usuarioTelefonoController.text,
+                                          rol: 'ADMIN_ROLE',
+                                        );
+
+                                        final result2 =
+                                            await newUser.crearUsuario(usuario);
+                                        Navigator.pushReplacementNamed(
+                                            context, 'principal');
+                                      } else {}
+                                    }
+                                  : null,
                               child: Text('Crear cuenta'),
                             ),
                           ),

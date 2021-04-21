@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:megafarmacia/services/loginPasswordService.dart';
+import 'package:megafarmacia/services/loginService.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final comprobar = Provider.of<LoginPasswordService>(context);
+    final login = Provider.of<LoginService>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -137,7 +139,15 @@ class _LoginPageState extends State<LoginPage> {
                             width: double.infinity,
                             child: MaterialButton(
                               color: Colors.blue,
-                              onPressed: comprobar.habilitarBtn ? () {} : null,
+                              onPressed: comprobar.habilitarBtn
+                                  ? () async {
+                                      final _login = login.login(
+                                          _emailController.text.trim(),
+                                          _passwordController.text.trim());
+                                      Navigator.pushReplacementNamed(
+                                          context, 'principal');
+                                    }
+                                  : null,
                               child: Text('Ingresar'),
                             ),
                           ),

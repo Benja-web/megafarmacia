@@ -32,7 +32,7 @@ class MovilPagePlantilla extends StatelessWidget {
       ),
       drawer: Container(
         width: kIsWeb
-            ? MediaQuery.of(context).size.width * 0.15
+            ? MediaQuery.of(context).size.width * 0.40
             : MediaQuery.of(context).size.width * 0.8,
         child: Drawer(
           child: Container(

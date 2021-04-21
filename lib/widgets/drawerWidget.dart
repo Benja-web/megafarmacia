@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:megafarmacia/models/usuarioModel.dart';
+import 'package:megafarmacia/services/newUser.dart';
 
 import 'package:megafarmacia/utils/constantes.dart';
+import 'package:provider/provider.dart';
 
 class DrawerPersonalizado extends StatelessWidget {
   const DrawerPersonalizado({
@@ -9,22 +12,27 @@ class DrawerPersonalizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountName: Text(''),
-          accountEmail: Text(''),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/imagenes/farmacia.jpg'),
-                  fit: BoxFit.cover)),
-        ),
-        _btnIten('Agregar producto', Icons.add,
-            () => Navigator.pushReplacementNamed(context, 'addproducto')),
-        Divider(),
-        _btnIten('Ver productos', Icons.store,
-            () => Navigator.pushReplacementNamed(context, 'productos')),
-      ],
+    return Container(
+      child: ListView(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountName: Text(''),
+            accountEmail: Text(''),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/imagenes/farmacia.jpg'),
+                    fit: BoxFit.fitWidth)),
+          ),
+          _btnIten('Principal', Icons.home,
+              () => Navigator.pushReplacementNamed(context, 'principal')),
+          Divider(),
+          _btnIten('Agregar producto', Icons.add,
+              () => Navigator.pushReplacementNamed(context, 'addproducto')),
+          Divider(),
+          _btnIten('Ver productos', Icons.store,
+              () => Navigator.pushReplacementNamed(context, 'productos')),
+        ],
+      ),
     );
   }
 

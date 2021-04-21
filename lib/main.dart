@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:megafarmacia/routes/routesRoutes.dart';
 import 'package:megafarmacia/preferencias_usuario/preferencias.dart';
 
+import 'package:megafarmacia/services/loginService.dart';
 import 'package:megafarmacia/services/loginPasswordRegistroService.dart';
 import 'package:megafarmacia/services/loginPasswordService.dart';
+import 'package:megafarmacia/services/newUser.dart';
 import 'package:megafarmacia/services/pedidoService.dart';
 
 void main() async {
@@ -26,6 +28,10 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => new LoginPasswordService()),
         ChangeNotifierProvider(
             create: (BuildContext context) => new CamposRegistroService()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => new NewUserService()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => new LoginService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

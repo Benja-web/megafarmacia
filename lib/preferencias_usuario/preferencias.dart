@@ -35,6 +35,33 @@ class PreferenciasUsuario {
     _prefs.setString('token', value);
   }
 
+  // GET y SET del uid
+  get uid {
+    return _prefs.getString('uid') ?? '';
+  }
+
+  set uid(String value) {
+    _prefs.setString('uid', value);
+  }
+
+  // GET y SET del doc
+  get doc {
+    return _prefs.getString('doc') ?? '';
+  }
+
+  set doc(String value) {
+    _prefs.setString('doc', value);
+  }
+
+  // GET y SET del reldoc
+  get reldoc {
+    return _prefs.getString('reldoc') ?? '';
+  }
+
+  set reldoc(String value) {
+    _prefs.setString('reldoc', value);
+  }
+
   // GET y SET de la última página
   get ultimaPagina {
     return _prefs.getString('ultimaPagina') ?? 'login';

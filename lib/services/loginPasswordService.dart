@@ -45,8 +45,11 @@ class LoginPasswordService with ChangeNotifier {
   }
 
   void changueEstadoBtn() {
-    if (this.errorUsuario == true && this.errorpassword == true)
+    if (this._errorusuario == false && this._errorpassword == false) {
       this._habilitarBtn = true;
+    } else {
+      this._habilitarBtn = false;
+    }
     notifyListeners();
   }
 }
